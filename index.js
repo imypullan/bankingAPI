@@ -20,19 +20,34 @@ let connectToDb = (cb) => {
     })
 }
 
+//get all accounts
 app.get('/accounts', (req, res) => {
     connectToDb(async (db) => {
-        //now have access to the db connection via the db param
-        //tell mongo which collection we want to work with
         const collection = db.collection('accounts')
-        //run query using await to avoid more callbacks
-        const data = await collection.find({}).toArray()
-        res.json(data)
+        const users = await collection.find({}).toArray()
+        res.json({
+            "success": true,
+            "message": "It worked",
+            "status": 200,
+            "data": users
+        })
     })
 })
 
-console.log('hello')
-
+//get specific account
+app.get('/accounts/:id', (req, res) => {
+    const id = ObjectId(req.params.id)
+    connectToDb(async (db) => {
+        const collection = db.collection('accounts')
+        const user = await collection.findOne({_id: id})
+       res.json({
+            "success": true,
+            "message": "It worked",
+            "status": 200,
+            "data": user
+        })
+    })
+})
 
 
 
