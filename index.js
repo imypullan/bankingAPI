@@ -24,15 +24,6 @@ let connectToDb = (cb) => {
     })
 }
 
-// app.get('/', (req, res) => {
-//     let data = {
-//         title: 'my new site',
-//         content: 'stuff and other stuff etc etc'
-//     }
-//     res.render('home', data)
-// })
-
-
 //get all accounts
 app.get('/accounts', (req, res) => {
     connectToDb(async (db) => {
@@ -68,14 +59,12 @@ app.put('/accounts', (req, res) => {
     const sum = req.body.sum
     connectToDb(async (db) => {
         const collection = db.collection('accounts')
-        const user = await collection.findOne({_id: id})
         const result = await collection.updateOne({_id: id}, {$inc: {balance: sum}})
         if (result.modifiedCount === 1) {
             res.json({
                 "success": true,
                 "message": "It worked",
                 "status": 200,
-                "data": user
             })
         } else {
             res.sendStatus(500)
