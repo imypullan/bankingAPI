@@ -4,42 +4,35 @@ const ObjectId = require('mongodb').ObjectId
 
 let getAllAccounts = (req, res) => {
     DbService.connectToDb(async (db) => {
-        let accounts = await AccountService.getAllAccounts(db)
-        res.json(accounts)
+        const accountId = ObjectId(req.params.id)
+        const allAccounts = await AccountService.getAllAccounts(db)
+        res.json({
+            "success": true,
+            "message": "It worked",
+            "status": 200,
+            "data": allAccounts
+        })
     })
 }
 
-module.exports.getAllAccounts = getAllAccounts
+let getAccountById = (req, res) => {
+    DbService.connectToDb(async (db) => {
+        const accountId = ObjectId(req.params.id)
+        const userAccount = await AccountService.getAccountById(db, accountId)
+        res.json({
+            "success": true,
+            "message": "It worked",
+            "status": 200,
+            "data": userAccount
+        })
+    })
+}
 
-// //get all accounts
-// app.get('/accounts', (req, res) => {
-//     connectToDb(async (db) => {
-//         const collection = db.collection('accounts')
-//         const users = await collection.find({}).toArray()
-//         res.json({
-//             "success": true,
-//             "message": "It worked",
-//             "status": 200,
-//             "data": users
-//         })
-//     })
-// })
-//
-// //get specific account
-// app.get('/accounts/:id', (req, res) => {
-//     const id = ObjectId(req.params.id)
-//     connectToDb(async (db) => {
-//         const collection = db.collection('accounts')
-//         const user = await collection.findOne({_id: id})
-//         res.json({
-//             "success": true,
-//             "message": "It worked",
-//             "status": 200,
-//             "data": user
-//         })
-//     })
-// })
-//
+
+module.exports.getAllAccounts = getAllAccounts
+module.exports.getAccountById = getAccountById
+
+
 // //add & remove money
 // app.put('/accounts', (req, res) => {
 //     const id = ObjectId(req.body.id)
