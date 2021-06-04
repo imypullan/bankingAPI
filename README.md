@@ -154,4 +154,19 @@ This endpoint allows you to add and withdraw money from a user's account.
             "sum": 40
         }
 
- 
+##### Success Response
+
+        {
+            "success": true,
+            "message": "It worked",
+            "status": 200,
+            "data": {
+                "n": 1,
+                "nModified": 1,
+                "ok": 1
+            }
+        }
+
+##### Error Response
+
+        Not Found
