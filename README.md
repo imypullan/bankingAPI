@@ -41,7 +41,7 @@ This endpoint sends a JSON of a specific account accessed by the document ID.
 
 ##### Sample Call
 
-        localhost:3000/accounts/60b79a22d1b03155ae920111
+        /accounts/60b79a22d1b03155ae920111
         
 
 ##### Success Message
