@@ -105,7 +105,7 @@ This endpoint allows you to add a new account to the bank collection.
             "status": 404
         }
 
-### POST
+### DELETE
 
 `DELETE /accounts`
 
