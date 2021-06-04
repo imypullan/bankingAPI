@@ -20,14 +20,31 @@ let changeBalanceById = async (db, account) => {
 
 let createNewAccount = async (db, account) => {
     const collection = db.collection('accounts')
-    const result = await collection.insertOne(
-        {name: account.name,
-        balance: account.balance})
-    console.log(result)
+    const result = await collection.insertOne({
+        name: account.name,
+        balance: account.balance
+    })
     return result
+}
+
+let balanceTransferById = async (db, transaction) => {
+    const collection = db.collection('accounts')
+    const withdrawResult = await collection.updateOne(
+        {_id: transaction.cardholderId},
+        {$inc: {balance: -(transaction.transferSum)}})
+    const addResult = await collection.updateOne(
+        {_id: transaction.recipientId},
+        {$inc: {balance: transaction.transferSum}}
+    )
+    if (withdrawResult.modifiedCount === 1 &&
+    addResult.modifiedCount === 1) {
+        return true;
+    }
+    return false;
 }
 
 module.exports.getAllAccounts = getAllAccounts
 module.exports.getAccountById = getAccountById
 module.exports.changeBalanceById = changeBalanceById
 module.exports.createNewAccount = createNewAccount
+module.exports.balanceTransferById = balanceTransferById
