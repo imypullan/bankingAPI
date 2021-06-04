@@ -75,7 +75,7 @@ This endpoint allows you to add a new account to the bank collection.
 `name=[string]`
 `balance=[positive integer]`
 
-##### Method
+##### Data Params
 
         {
             "name": "Sally Smith",
@@ -104,7 +104,32 @@ This endpoint allows you to add a new account to the bank collection.
             "message": "Must have name and positive balance",
             "status": 404
         }
+
+### POST
+
+`DELETE /accounts`
+
+This endpoint allows you to permanently remove an account from the bank
+
+##### Data Params
+
+        {
+            "accountId": "60ba2977e130b761dfc0b697"
+        }
+
+##### Success Response
+
+        {
+    "success": true,
+    "message": "Account permanently deleted",
+    "status": 200
+        }
+        
+ ##### Error Response
  
+         Not Found
+
+
 
 * **URL**
 
