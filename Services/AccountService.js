@@ -10,5 +10,14 @@ let getAccountById = async (db, accountId) => {
     return result
 }
 
+let changeBalanceById = async (db, account) => {
+    const collection = db.collection('accounts')
+    const result = await collection.updateOne(
+        {_id: account.id},
+        {$inc: {balance: account.sum}})
+    return result
+}
+
 module.exports.getAllAccounts = getAllAccounts
 module.exports.getAccountById = getAccountById
+module.exports.changeBalanceById = changeBalanceById
