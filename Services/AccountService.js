@@ -43,8 +43,16 @@ let balanceTransferById = async (db, transaction) => {
     return false;
 }
 
+let permanentlyRemoveAccountById = async (db, accountId) => {
+    console.log(accountId)
+    const collection = db.collection('accounts')
+    const result = await collection.deleteOne({_id: accountId})
+    return result
+}
+
 module.exports.getAllAccounts = getAllAccounts
 module.exports.getAccountById = getAccountById
 module.exports.changeBalanceById = changeBalanceById
 module.exports.createNewAccount = createNewAccount
 module.exports.balanceTransferById = balanceTransferById
+module.exports.permanentlyRemoveAccountById = permanentlyRemoveAccountById

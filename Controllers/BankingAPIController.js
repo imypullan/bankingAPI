@@ -54,16 +54,24 @@ let createNewAccount = (req, res) => {
             name: req.body.name,
             balance: req.body.balance
         }
-        const newAccount = await AccountService.createNewAccount(db, account)
-        if (newAccount.insertedCount === 1) {
-            res.json({
-                "success": true,
-                "message": "It worked",
-                "status": 200,
-                "data": newAccount
-            })
+        if (account.name !== "" && account.balance >= 0) {
+            const newAccount = await AccountService.createNewAccount(db, account)
+            if (newAccount.insertedCount === 1) {
+                res.json({
+                    "success": true,
+                    "message": "It worked",
+                    "status": 200,
+                    "data": newAccount
+                })
+            } else {
+                res.sendStatus(404)
+            }
         } else {
-            res.sendStatus(404)
+            res.json({
+                "success": false,
+                "message": "Must have name and positive balance",
+                "status": 404
+            })
         }
     })
 }
@@ -88,22 +96,26 @@ let balanceTransferById = (req, res) => {
     })
 }
 
+let permanentlyRemoveAccountById = (req, res) => {
+    DbService.connectToDb(async (db) =>
+    {
+        const accountId = ObjectId(req.body.accountId)
+        const removedAccount = await AccountService.permanentlyRemoveAccountById(db, accountId)
+        if (removedAccount.deletedCount === 1) {
+            res.json({
+                "success": true,
+                "message": "Account permanently deleted",
+                "status": 200,
+            })
+        } else {
+            res.sendStatus(404)
+        }
+    })
+}
+
 module.exports.getAllAccounts = getAllAccounts
 module.exports.getAccountById = getAccountById
 module.exports.changeBalanceById = changeBalanceById
 module.exports.createNewAccount = createNewAccount
 module.exports.balanceTransferById = balanceTransferById
-
-
-
-//
-// // balance transfer
-// app.put('accounts/transfer', (req, res) => {
-//     const cardholderId = ObjectId(req.body.cardHolderId)
-//     const recipientId = ObjectId(req.body.recipientId)
-//     const transferSum = req.body.transferSum
-//     connectToDb(async (db) => {
-//         const collection = db.collection('accounts')
-//     })
-//
-// })
+module.exports.permanentlyRemoveAccountById = permanentlyRemoveAccountById
