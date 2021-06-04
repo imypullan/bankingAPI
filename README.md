@@ -3,23 +3,23 @@
 `GET /accounts`
 
 This endpoint sends a JSON of all accounts within the accounts collection. 
-                        {
-                            "success": true,
-                            "message": "It worked",
-                            "status": 200,
-                            "data": [
-                                {
-                                    "_id": "60b79a22d1b03155ae920111",
-                                    "name": "imy",
-                                    "balance": 2802
-                                },
-                                {
-                                    "_id": "60b79d07d1b03155ae920112",
-                                    "name": "kate",
-                                    "balance": 99940
-                                }
-                            ]
-                        }
+                          {
+                              "success": true,
+                              "message": "It worked",
+                              "status": 200,
+                              "data": [
+                                  {
+                                      "_id": "60b79a22d1b03155ae920111",
+                                      "name": "imy",
+                                      "balance": 2802
+                                  },
+                                  {
+                                      "_id": "60b79d07d1b03155ae920112",
+                                      "name": "kate",
+                                      "balance": 99940
+                                  }
+                              ]
+                          }
 
 * **URL**
 
