@@ -70,6 +70,11 @@ This endpoint sends a JSON of a specific account accessed by the document ID.
 
 This endpoint allows you to add a new account to the bank collection.
 
+**Required:**
+
+`name=[string]`
+`balance=[positive integer]`
+
 ##### Method
 
         {
@@ -78,6 +83,28 @@ This endpoint allows you to add a new account to the bank collection.
         }
 
 ##### Success Response
+
+        {
+            "success": true,
+            "message": "It worked",
+            "status": 200,
+            "data": [
+                {
+                    "name": "Sally Smith",
+                    "balance": 42000,
+                    "_id": "60ba2977e130b761dfc0b697"
+                }
+            ]
+        }
+        
+ ##### Error Response
+ 
+         {
+            "success": false,
+            "message": "Must have name and positive balance",
+            "status": 404
+        }
+ 
 
 * **URL**
 
