@@ -18,6 +18,16 @@ let changeBalanceById = async (db, account) => {
     return result
 }
 
+let createNewAccount = async (db, account) => {
+    const collection = db.collection('accounts')
+    const result = await collection.insertOne(
+        {name: account.name,
+        balance: account.balance})
+    console.log(result)
+    return result
+}
+
 module.exports.getAllAccounts = getAllAccounts
 module.exports.getAccountById = getAccountById
 module.exports.changeBalanceById = changeBalanceById
+module.exports.createNewAccount = createNewAccount

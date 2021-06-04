@@ -34,7 +34,6 @@ let changeBalanceById = (req, res) => {
             id: ObjectId(req.body.id),
             sum: req.body.sum
         }
-        console.log(account)
         const updatedAccount = await AccountService.changeBalanceById(db, account)
         if(updatedAccount.modifiedCount === 1) {
             res.json({
@@ -49,10 +48,30 @@ let changeBalanceById = (req, res) => {
     })
 }
 
+let createNewAccount = (req, res) => {
+    DbService.connectToDb(async (db) => {
+        const account = {
+            name: req.body.name,
+            balance: req.body.balance
+        }
+        const newAccount = await AccountService.createNewAccount(db, account)
+        if (newAccount.insertedCount === 1) {
+            res.json({
+                "success": true,
+                "message": "It worked",
+                "status": 200,
+                "data": newAccount
+            })
+        } else {
+            res.sendStatus(404)
+        }
+    })
+}
 
 module.exports.getAllAccounts = getAllAccounts
 module.exports.getAccountById = getAccountById
 module.exports.changeBalanceById = changeBalanceById
+module.exports.createNewAccount = createNewAccount
 
 
 //
