@@ -1,14 +1,16 @@
 # Restful Banking API Documentation 
 ----
-### Get
-
-Access existing accounts data.
+### Collection Structure
 
 | Column 1       | Column 2     | 
 | :------------- | :----------: | 
-| _id |  Unique account ID, auto-generated  | 
-| name   | Name of account holder |
-| balance   | Amount of money held in the account |
+| _id |  Unique account ID, auto-generated  | String |
+| name   | Name of account holder | String |
+| balance   | Amount of money held in the account | Integer |
+
+### Get
+
+Access existing accounts data.
 
 `GET /accounts`
 
