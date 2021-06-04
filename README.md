@@ -1,14 +1,16 @@
 # Restful Banking API Documentation 
 ----
-### Get
-
-Access existing accounts data.
+### Collection Structure
 
 | Column 1       | Column 2     | 
 | :------------- | :----------: | 
-| _id |  Unique account ID, auto-generated  | 
-| name   | Name of account holder |
-| balance   | Amount of money held in the account |
+| _id |  Unique account ID, auto-generated  | String |
+| name   | Name of account holder | String |
+| balance   | Amount of money held in the account | Integer |
+
+### Get
+
+Access existing accounts data.
 
 `GET /accounts`
 
@@ -62,13 +64,6 @@ This endpoint sends a JSON of a specific account accessed by the document ID.
 
 
 ### POST
-
-| Column 1       | Column 2     | 
-| :------------- | :----------: | 
-| _id |  Unique account ID, auto-generated  | 
-| name   | Name of account holder |
-| balance   | Amount of money held in the account |
-
 
 `POST /accounts`
 
@@ -170,3 +165,34 @@ This endpoint allows you to add and withdraw money from a user's account.
 ##### Error Response
 
         Not Found
+        
+        
+`PUT /accounts/balanceTransfer`
+
+This endpoint allows you to transfer money from one account to another 
+
+##### Data Params
+
+        {
+            "cardholderId": "60b79d07d1b03155ae920112",
+            "transferSum": 100,
+            "recipientId": "60b79a22d1b03155ae920111"
+        }
+
+##### Success Response
+
+        {
+            "success": true,
+            "message": "Transfer successful",
+            "status": 200
+        }
+        
+##### Error Response
+
+If there is an issue connecting to the DB
+
+        Not Found
+
+##### Error Response
+
+        "Please ensure you have all three required fields correctly typed"
