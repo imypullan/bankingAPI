@@ -2,6 +2,14 @@
 ----
 ### Get
 
+Access existing accounts data.
+
+| Column 1       | Column 2     | 
+| :------------- | :----------: | 
+| _id |  Unique account ID, auto-generated  | 
+| name   | Name of account holder |
+| balance   | Amount of money held in the account |
+
 `GET /accounts`
 
 This endpoint sends a JSON of all accounts within the accounts collection. No authentication currently required.
@@ -38,6 +46,23 @@ This endpoint sends a JSON of a specific account accessed by the document ID.
         "balance": 2802
     }
 }
+
+### POST
+
+| Column 1       | Column 2     | 
+| :------------- | :----------: | 
+| _id |  Unique account ID, auto-generated  | 
+| name   | Name of account holder |
+| balance   | Amount of money held in the account |
+
+
+`POST /accounts`
+
+This endpoint allows you to add a new account to the bank collection.
+
+
+
+
 
 * **URL**
 
