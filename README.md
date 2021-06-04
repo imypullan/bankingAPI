@@ -12,7 +12,7 @@ Access existing accounts data.
 
 `GET /accounts`
 
-This endpoint sends a JSON of all accounts within the accounts collection. No authentication currently required.
+This endpoint sends a JSON of all accounts within the accounts collection. No authentication currently required (it's a terrible bank).
 
 ##### Success Response
 
@@ -33,6 +33,10 @@ This endpoint sends a JSON of all accounts within the accounts collection. No au
                 }
             ]
         }
+        
+ ##### Error Response
+ 
+        not found
 
 `GET /accounts/:id`
 
@@ -99,17 +103,25 @@ This endpoint allows you to add a new account to the bank collection.
         
  ##### Error Response
  
+ If a name is not given || initial balance is negative
+ 
          {
             "success": false,
             "message": "Must have name and positive balance",
             "status": 404
         }
 
+##### Error Response
+
+If the wrong datatypes are submitted
+
+        Not Found
+
 ### DELETE
 
 `DELETE /accounts`
 
-This endpoint allows you to permanently remove an account from the bank
+This endpoint allows you to permanently remove an account from the bank.
 
 ##### Data Params
 
@@ -119,67 +131,27 @@ This endpoint allows you to permanently remove an account from the bank
 
 ##### Success Response
 
-        {
-    "success": true,
-    "message": "Account permanently deleted",
-    "status": 200
-        }
+    {
+        "success": true,
+        "message": "Account permanently deleted",
+        "status": 200
+    }
         
  ##### Error Response
  
          Not Found
 
+### PUT
 
+`PUT/balanceChange`
 
-* **URL**
+This endpoint allows you to add and withdraw money from a user's account.
 
-  <_The URL Structure (path only, no root url)_>
+##### Data Params
 
-* **Method:**
-  
-  <_The request type_>
+        {
+            "id": "60b79a22d1b03155ae920111",
+            "sum": 40
+        }
 
-  `GET` | `POST` | `DELETE` | `PUT`
-  
-*  **URL Params**
-
-   <_If URL params exist, specify them in accordance with name mentioned in URL section. Separate into optional and required. Document data constraints._> 
-
-   **Required:**
  
-   `id=[integer]`
-
-   **Optional:**
- 
-   `photo_id=[alphanumeric]`
-
-* **Data Params**
-
-  <_If making a post request, what should the body payload look like? URL Params rules apply here too._>
-
-* **Success Response:**
-  
-  <_What should the status code be on success and is there any returned data? This is useful when people need to to know what their callbacks should expect!_>
-
-  * **Code:** 200 <br />
-    **Content:** `{ id : 12 }`
- 
-* **Error Response:**
-
-  <_Most endpoints will have many ways they can fail. From unauthorized access, to wrongful parameters etc. All of those should be liste d here. It might seem repetitive, but it helps prevent assumptions from being made where they should be._>
-
-  * **Code:** 401 UNAUTHORIZED <br />
-    **Content:** `{ error : "Log in" }`
-
-  OR
-
-  * **Code:** 422 UNPROCESSABLE ENTRY <br />
-    **Content:** `{ error : "Email Invalid" }`
-
-* **Sample Call:**
-
-  <_Just a sample call to your endpoint in a runnable format ($.ajax call or a curl request) - this makes life easier and more predictable._> 
-
-* **Notes:**
-
-  <_This is where all uncertainties, commentary, discussion etc. can go. I recommend timestamping and identifying oneself when leaving comments here._> 
