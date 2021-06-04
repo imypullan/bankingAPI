@@ -4,14 +4,17 @@ const ObjectId = require('mongodb').ObjectId
 
 let getAllAccounts = (req, res) => {
     DbService.connectToDb(async (db) => {
-        const accountId = ObjectId(req.params.id)
-        const allAccounts = await AccountService.getAllAccounts(db)
-        res.json({
-            "success": true,
-            "message": "It worked",
-            "status": 200,
-            "data": allAccounts
-        })
+        try {
+            const allAccounts = await AccountService.getAllAccounts(db)
+            return res.json({
+                "success": true,
+                "message": "It worked",
+                "status": 200,
+                "data": allAccounts
+            })
+        } catch (e) {
+            return res.sendStatus(404)
+        }
     })
 }
 
@@ -30,20 +33,22 @@ let getAccountById = (req, res) => {
 
 let changeBalanceById = (req, res) => {
     DbService.connectToDb(async (db) => {
-        const account = {
-            id: ObjectId(req.body.id),
-            sum: req.body.sum
-        }
-        const updatedAccount = await AccountService.changeBalanceById(db, account)
-        if(updatedAccount.modifiedCount === 1) {
-            res.json({
-                "success": true,
-                "message": "It worked",
-                "status": 200,
-                "data": updatedAccount
-            })
-        } else {
-            res.sendStatus(404)
+        try {
+            const account = {
+                id: ObjectId(req.body.id),
+                sum: req.body.sum
+            }
+            const updatedAccount = await AccountService.changeBalanceById(db, account)
+            if(updatedAccount.modifiedCount === 1) {
+                return res.json({
+                    "success": true,
+                    "message": "It worked",
+                    "status": 200,
+                    "data": updatedAccount.result
+                })
+            }
+        } catch (e) {
+            return res.sendStatus(404)
         }
     })
 }
@@ -55,24 +60,25 @@ let createNewAccount = (req, res) => {
             balance: req.body.balance
         }
         if (account.name !== "" && account.balance >= 0) {
-            const newAccount = await AccountService.createNewAccount(db, account)
-            if (newAccount.insertedCount === 1) {
-                res.json({
-                    "success": true,
-                    "message": "It worked",
-                    "status": 200,
-                    "data": newAccount
-                })
-            } else {
-                res.sendStatus(404)
+            try {
+                const newAccount = await AccountService.createNewAccount(db, account)
+                if (newAccount.insertedCount === 1) {
+                    return res.json({
+                        "success": true,
+                        "message": "It worked",
+                        "status": 200,
+                        "data": newAccount.ops
+                    })
+                }
+            } catch (e) {
+                return res.sendStatus(404)
             }
-        } else {
-            res.json({
-                "success": false,
-                "message": "Must have name and positive balance",
-                "status": 404
-            })
         }
+        return res.json({
+            "success": false,
+            "message": "Must have name and positive balance",
+            "status": 404
+        })
     })
 }
 
