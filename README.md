@@ -1,6 +1,11 @@
-**Banking API**
+** Restful Banking API Documentation **
 ----
-  <_Additional information about your API call. Try to use verbs that match both request type (fetching vs modifying) and plurality (one vs multiple)._>
+`GET`
+
+<_This endpoint sends a JSON of all accounts within the accounts collection._> 
+
+GET /accounts'
+   
 
 * **URL**
 
