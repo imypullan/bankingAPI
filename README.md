@@ -5,6 +5,7 @@
 `GET /accounts`
 
 This endpoint sends a JSON of all accounts within the accounts collection. 
+
         {
             "success": true,
             "message": "It worked",
