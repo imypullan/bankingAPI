@@ -4,7 +4,7 @@
 
 `GET /accounts`
 
-This endpoint sends a JSON of all accounts within the accounts collection. 
+This endpoint sends a JSON of all accounts within the accounts collection. No authentication currently required.
 
         {
             "success": true,
@@ -23,6 +23,21 @@ This endpoint sends a JSON of all accounts within the accounts collection.
                 }
             ]
         }
+
+`GET /accounts/:id`
+
+This endpoint sends a JSON of a specific account accessed by the document ID.
+
+        {
+    "success": true,
+    "message": "It worked",
+    "status": 200,
+    "data": {
+        "_id": "60b79a22d1b03155ae920111",
+        "name": "imy",
+        "balance": 2802
+    }
+}
 
 * **URL**
 
