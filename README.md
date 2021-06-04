@@ -14,6 +14,8 @@ Access existing accounts data.
 
 This endpoint sends a JSON of all accounts within the accounts collection. No authentication currently required.
 
+##### Success Response
+
         {
             "success": true,
             "message": "It worked",
@@ -36,16 +38,24 @@ This endpoint sends a JSON of all accounts within the accounts collection. No au
 
 This endpoint sends a JSON of a specific account accessed by the document ID.
 
-        {
-    "success": true,
-    "message": "It worked",
-    "status": 200,
-    "data": {
-        "_id": "60b79a22d1b03155ae920111",
-        "name": "imy",
-        "balance": 2802
+
+##### Sample Call
+
+        localhost:3000/accounts/60b79a22d1b03155ae920111
+        
+
+##### Success Message
+
+    {
+        "success": true,
+        "message": "It worked",
+        "status": 200,
+        "data": {
+                "_id": "60b79a22d1b03155ae920111",
+                "name": "imy",
+                "balance": 2802
     }
-}
+
 
 ### POST
 
@@ -60,9 +70,14 @@ This endpoint sends a JSON of a specific account accessed by the document ID.
 
 This endpoint allows you to add a new account to the bank collection.
 
+##### Method
 
+        {
+            "name": "Sally Smith",
+            "balance": 42000
+        }
 
-
+##### Success Response
 
 * **URL**
 
